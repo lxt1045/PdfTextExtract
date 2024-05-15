@@ -1,7 +1,6 @@
 package core
 
 import (
-	"../common"
 	"bufio"
 	"bytes"
 	"encoding/hex"
@@ -10,6 +9,8 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/hy05190134/PdfTextExtract/common"
 )
 
 var rePdfVersion = regexp.MustCompile(`%PDF-(\d)\.(\d)`)
@@ -319,7 +320,7 @@ func (parser *PdfParser) ParseIndirectObject() (PdfObject, error) {
 	return &indirect, nil
 }
 
-//read compressed xref table
+// read compressed xref table
 func (parser *PdfParser) readXrefStream(xs *PdfObjectStream) error {
 	sizeObj, ok := xs.PdfObjectDictionary.Get("Size").(*PdfObjectInteger)
 	if !ok {

@@ -7,30 +7,34 @@
 package main
 
 import (
-	common "./common"
-	. "./core"
-	. "./extractor"
-	pdf "./model"
 	"bytes"
 	"fmt"
-	"github.com/otiai10/gosseract"
-	"io/ioutil"
+	"io"
 	"os"
 	"time"
+
+	common "github.com/hy05190134/PdfTextExtract/common"
+	. "github.com/hy05190134/PdfTextExtract/core"
+	. "github.com/hy05190134/PdfTextExtract/extractor"
+	pdf "github.com/hy05190134/PdfTextExtract/model"
+
+	// "github.com/otiai10/gosseract"
+
 	//"runtime"
 	"strings"
 )
 
 func main() {
-	if len(os.Args) < 2 {
-		fmt.Printf("Usage: go run pdf_extract_text.go input.pdf\n")
-		os.Exit(1)
-	}
+	// if len(os.Args) < 2 {
+	// 	fmt.Printf("Usage: go run pdf_extract_text.go input.pdf\n")
+	// 	os.Exit(1)
+	// }
 
 	// For debugging.
 	common.SetLogger(common.NewConsoleLogger(common.LogLevelDebug))
 
-	inputPath := os.Args[1]
+	// inputPath := os.Args[1]
+	inputPath := "D:/book/极客时间/CICD/DevOps实战笔记.pdf"
 
 	/*
 		    m := new(runtime.MemStats)
@@ -52,7 +56,10 @@ func main() {
 		panic(err)
 	}
 	defer fi.Close()
-	fd, err := ioutil.ReadAll(fi)
+	fd, err := io.ReadAll(fi)
+	if err != nil {
+		panic(err)
+	}
 	content := string(fd)
 	text, err = ExtractPdfContent(content)
 	if err != nil {
@@ -77,13 +84,13 @@ func parseText(this *pdf.PdfReader) (string, error) {
 	pageList := this.GetPageList()
 	parser := this.GetParser()
 	mFontsForPages := this.GetFontsForPages()
-	mPageResources := this.GetPageResources()
+	// mPageResources := this.GetPageResources()
 
 	contentStreamChan := make(chan ContentPair, 10)
 
-	client := gosseract.NewClient()
-	client.SetLanguage("chi_sim", "eng")
-	defer client.Close()
+	// client := gosseract.NewClient()
+	// client.SetLanguage("chi_sim", "eng")
+	// defer client.Close()
 
 	go func() {
 		for i := 0; i < len(pageList); i++ {
@@ -122,22 +129,22 @@ func parseText(this *pdf.PdfReader) (string, error) {
 				}
 			}
 
-			//switch off
-			if false {
-				if xObjectObjDict, ok := mPageResources[i].Get("XObject").(*PdfObjectDictionary); ok {
-					common.Log.Debug("xobject %s", xObjectObjDict)
-					for imgName, _ := range xObjectObjDict.Dict() {
-						common.Log.Debug("picture: %s try to ocr", imgName)
-						if imageObj, err := parser.Trace(xObjectObjDict.Get(imgName)); err == nil {
-							if imageObjStm, ok := imageObj.(*PdfObjectStream); ok {
-								client.SetImageFromBytes(imageObjStm.Stream)
-								text, _ := client.Text()
-								common.Log.Debug("image text: %s", text)
-							}
-						}
-					}
-				}
-			}
+			// //switch off
+			// if false {
+			// 	if xObjectObjDict, ok := mPageResources[i].Get("XObject").(*PdfObjectDictionary); ok {
+			// 		common.Log.Debug("xobject %s", xObjectObjDict)
+			// 		for imgName, _ := range xObjectObjDict.Dict() {
+			// 			common.Log.Debug("picture: %s try to ocr", imgName)
+			// 			if imageObj, err := parser.Trace(xObjectObjDict.Get(imgName)); err == nil {
+			// 				if imageObjStm, ok := imageObj.(*PdfObjectStream); ok {
+			// 					client.SetImageFromBytes(imageObjStm.Stream)
+			// 					text, _ := client.Text()
+			// 					common.Log.Debug("image text: %s", text)
+			// 				}
+			// 			}
+			// 		}
+			// 	}
+			// }
 		}
 		close(contentStreamChan)
 	}()

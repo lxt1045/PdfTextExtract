@@ -6,14 +6,15 @@
 package model
 
 import (
-	"../cmap"
-	"../common"
-	. "../core"
 	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"strconv"
+
+	cmap "github.com/hy05190134/PdfTextExtract/cmap"
+	common "github.com/hy05190134/PdfTextExtract/common"
+	. "github.com/hy05190134/PdfTextExtract/core"
 )
 
 const (
@@ -695,7 +696,6 @@ func (this *PdfReader) loadStructure() error {
 // Example circular reference.
 // 1 0 obj << /Next 2 0 R >>
 // 2 0 obj << /Next 1 0 R >>
-//
 func (this *PdfReader) traceToObjectWrapper(obj PdfObject, refList map[*PdfObjectReference]bool) (PdfObject, error) {
 	// Keep a list of references to avoid circular references.
 

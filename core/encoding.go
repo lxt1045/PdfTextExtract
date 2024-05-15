@@ -31,9 +31,8 @@ import (
 	// Need two slightly different implementations of LZW (EarlyChange parameter).
 	lzw0 "compress/lzw"
 
+	"github.com/hy05190134/PdfTextExtract/common"
 	lzw1 "golang.org/x/image/tiff/lzw"
-
-	"../common"
 )
 
 const (
@@ -791,7 +790,6 @@ func (this *LZWEncoder) EncodeBytes(data []byte) ([]byte, error) {
 	return b.Bytes(), nil
 }
 
-//
 // DCT (JPG) encoding/decoding functionality for images.
 type DCTEncoder struct {
 	ColorComponents  int // 1 (gray), 3 (rgb), 4 (cmyk)
@@ -1120,12 +1118,12 @@ func newRunLengthEncoderFromStream(streamObj *PdfObjectStream, decodeParams *Pdf
 }
 
 /*
-	7.4.5 RunLengthDecode Filter
-	The RunLengthDecode filter decodes data that has been encoded in a simple byte-oriented format based on run length.
-	The encoded data shall be a sequence of runs, where each run shall consist of a length byte followed by 1 to 128
-	bytes of data. If the length byte is in the range 0 to 127, the following length + 1 (1 to 128) bytes shall be
-	copied literally during decompression. If length is in the range 129 to 255, the following single byte shall be
-	copied 257 - length (2 to 128) times during decompression. A length value of 128 shall denote EOD.
+7.4.5 RunLengthDecode Filter
+The RunLengthDecode filter decodes data that has been encoded in a simple byte-oriented format based on run length.
+The encoded data shall be a sequence of runs, where each run shall consist of a length byte followed by 1 to 128
+bytes of data. If the length byte is in the range 0 to 127, the following length + 1 (1 to 128) bytes shall be
+copied literally during decompression. If length is in the range 129 to 255, the following single byte shall be
+copied 257 - length (2 to 128) times during decompression. A length value of 128 shall denote EOD.
 */
 func (this *RunLengthEncoder) DecodeBytes(encoded []byte) ([]byte, error) {
 	bufReader := bytes.NewReader(encoded)
@@ -1243,7 +1241,7 @@ func (this *RunLengthEncoder) MakeStreamDict() *PdfObjectDictionary {
 	return dict
 }
 
-/////
+// ///
 // ASCII hex encoder/decoder.
 type ASCIIHexEncoder struct {
 }
@@ -1318,9 +1316,7 @@ func (this *ASCIIHexEncoder) EncodeBytes(data []byte) ([]byte, error) {
 	return encoded.Bytes(), nil
 }
 
-//
 // ASCII85 encoder/decoder.
-//
 type ASCII85Encoder struct {
 }
 
@@ -1429,7 +1425,9 @@ func (this *ASCII85Encoder) DecodeStream(streamObj *PdfObjectStream) ([]byte, er
 }
 
 // Convert a base 256 number to a series of base 85 values (5 codes).
-//  85^5 = 4437053125 > 256^4 = 4294967296
+//
+//	85^5 = 4437053125 > 256^4 = 4294967296
+//
 // So 5 base-85 numbers will always be enough to cover 4 base-256 numbers.
 // The base 256 value is already converted to an uint32 value.
 func (this *ASCII85Encoder) base256Tobase85(base256val uint32) [5]byte {
@@ -1490,9 +1488,7 @@ func (this *ASCII85Encoder) EncodeBytes(data []byte) ([]byte, error) {
 	return encoded.Bytes(), nil
 }
 
-//
 // Raw encoder/decoder (no encoding, pass through)
-//
 type RawEncoder struct{}
 
 func NewRawEncoder() *RawEncoder {
@@ -1524,9 +1520,7 @@ func (this *RawEncoder) EncodeBytes(data []byte) ([]byte, error) {
 	return data, nil
 }
 
-//
 // CCITTFax encoder/decoder (dummy, for now)
-//
 type CCITTFaxEncoder struct{}
 
 func NewCCITTFaxEncoder() *CCITTFaxEncoder {
@@ -1561,9 +1555,7 @@ func (this *CCITTFaxEncoder) EncodeBytes(data []byte) ([]byte, error) {
 	return data, ErrNoCCITTFaxDecode
 }
 
-//
 // JBIG2 encoder/decoder (dummy, for now)
-//
 type JBIG2Encoder struct{}
 
 func NewJBIG2Encoder() *JBIG2Encoder {
@@ -1598,9 +1590,7 @@ func (this *JBIG2Encoder) EncodeBytes(data []byte) ([]byte, error) {
 	return data, ErrNoJBIG2Decode
 }
 
-//
 // JPX encoder/decoder (dummy, for now)
-//
 type JPXEncoder struct{}
 
 func NewJPXEncoder() *JPXEncoder {
@@ -1635,9 +1625,7 @@ func (this *JPXEncoder) EncodeBytes(data []byte) ([]byte, error) {
 	return data, ErrNoJPXDecode
 }
 
-//
 // Multi encoder: support serial encoding.
-//
 type MultiEncoder struct {
 	// Encoders in the order that they are to be applied.
 	encoders []StreamEncoder

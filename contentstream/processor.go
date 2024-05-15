@@ -6,8 +6,8 @@
 package contentstream
 
 import (
-	"../common"
-	. "../model"
+	"github.com/hy05190134/PdfTextExtract/common"
+	. "github.com/hy05190134/PdfTextExtract/model"
 	//. "github.com/unidoc/unidoc/pdf/core"
 )
 
@@ -18,7 +18,7 @@ type ContentStreamProcessor struct {
 	currentIndex int
 }
 
-//type HandlerFunc func(op *ContentStreamOperation, gs GraphicsState, resources *PdfPageResources) error
+// type HandlerFunc func(op *ContentStreamOperation, gs GraphicsState, resources *PdfPageResources) error
 type HandlerFunc func(op *ContentStreamOperation, resources FontsByNames) error
 
 type HandlerEntry struct {

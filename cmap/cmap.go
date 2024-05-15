@@ -6,14 +6,16 @@
 package cmap
 
 import (
-	"../common"
 	"bytes"
 	"encoding/hex"
 	"errors"
 	"fmt"
+
 	//"github.com/unidoc/unidoc/pdf/model/textencoding"
 	"io"
 	"math"
+
+	"github.com/hy05190134/PdfTextExtract/common"
 )
 
 // CMap represents a character code to unicode mapping used in PDF files.

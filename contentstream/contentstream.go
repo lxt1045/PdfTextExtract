@@ -6,8 +6,9 @@
 package contentstream
 
 import (
-	. "../core"
 	"bytes"
+
+	. "github.com/hy05190134/PdfTextExtract/core"
 )
 
 type ContentStreamOperation struct {

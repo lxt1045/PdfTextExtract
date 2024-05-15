@@ -9,7 +9,7 @@ import (
 	"bytes"
 	"fmt"
 
-	"../common"
+	"github.com/hy05190134/PdfTextExtract/common"
 )
 
 // PdfObject is an interface which all primitive PDF objects must implement.
@@ -456,7 +456,6 @@ func (d *PdfObjectDictionary) Remove(key PdfObjectName) {
 // Note that we take care to perform a type switch.  Otherwise if we would supply a nil value
 // of another type, e.g. (PdfObjectArray*)(nil), then it would not be a PdfObject(nil) and thus
 // would get set.
-//
 func (d *PdfObjectDictionary) SetIfNotNil(key PdfObjectName, val PdfObject) {
 	if val != nil {
 		switch t := val.(type) {

@@ -15,7 +15,7 @@ import (
 	"fmt"
 	"io"
 
-	"../common"
+	"github.com/hy05190134/PdfTextExtract/common"
 )
 
 // PdfCrypt provides PDF encryption/decryption support.

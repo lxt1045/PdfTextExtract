@@ -15,8 +15,8 @@ import (
 
 	"encoding/hex"
 
-	"../common"
-	"../core"
+	common "github.com/hy05190134/PdfTextExtract/common"
+	core "github.com/hy05190134/PdfTextExtract/core"
 )
 
 // cMapParser parses CMap character to unicode mapping files.

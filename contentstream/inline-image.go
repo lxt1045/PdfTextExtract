@@ -9,8 +9,8 @@ import (
 	"bytes"
 	"fmt"
 
-	"../common"
-	"../core"
+	common "github.com/hy05190134/PdfTextExtract/common"
+	core "github.com/hy05190134/PdfTextExtract/core"
 )
 
 // A representation of an inline image in a Content stream. Everything between the BI and EI operands.
