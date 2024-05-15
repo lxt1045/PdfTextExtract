@@ -34,7 +34,7 @@ func TestExtract(t *testing.T) {
 		os.Exit(1)
 	}
 
-	fmt.Println(text)
+	fmt.Println(string(text))
 
 	fmt.Printf("before load, heap memory: %d, head in use: %d\n", m.HeapAlloc, m.HeapInuse)
 	runtime.GC()
@@ -69,7 +69,7 @@ func TestExtractByContent(t *testing.T) {
 		os.Exit(1)
 	}
 
-	fmt.Println(text)
+	fmt.Println(string(text))
 
 	fmt.Printf("before load, heap memory: %d, head in use: %d\n", m.HeapAlloc, m.HeapInuse)
 	runtime.GC()

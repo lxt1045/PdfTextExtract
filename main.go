@@ -41,7 +41,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Println(text)
+	fmt.Println(string(text))
 	fmt.Println("--------------")
 
 	fi, err := os.Open(inputPath)
@@ -60,7 +60,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Println(text)
+	fmt.Println(string(text))
 	/*
 		runtime.GC()
 		runtime.ReadMemStats(m)

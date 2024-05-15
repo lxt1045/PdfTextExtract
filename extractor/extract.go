@@ -29,6 +29,11 @@ type ContentPair struct {
 }
 
 func parseText(this *pdf.PdfReader) (string, error) {
+	bs, err := parseBytes(this)
+	return string(bs), err
+}
+
+func parseBytes(this *pdf.PdfReader) ([]byte, error) {
 	pageList := this.GetPageList()
 	parser := this.GetParser()
 	mFontsForPages := this.GetFontsForPages()
@@ -102,7 +107,7 @@ func parseText(this *pdf.PdfReader) (string, error) {
 		if pair, ok := <-contentStreamChan; ok {
 			streamData, err := core.DecodeStream(pair.s)
 			if err != nil {
-				return "", err
+				return nil, err
 			}
 
 			common.Log.Trace("stream data: %s", streamData)
@@ -116,11 +121,11 @@ func parseText(this *pdf.PdfReader) (string, error) {
 		}
 	}
 
-	return textBuffer.String(), nil
+	return textBuffer.Bytes(), nil
 }
 
 // outputPdfText prints out contents of PDF file to stdout.
-func ExtractPdfContent(content string) (string, error) {
+func ExtractPdfContent(content string) (bs []byte, err error) {
 
 	f := strings.NewReader(content)
 
@@ -128,25 +133,25 @@ func ExtractPdfContent(content string) (string, error) {
 
 	if err != nil {
 		fmt.Printf("parser pdf failed, err: %s\n", err)
-		return "", err
+		return
 	}
 
 	err = pdfReader.ParseFonts()
 	if err != nil {
 		fmt.Printf("parse fonts err: %s\n", err)
-		return "", err
+		return
 	}
 
-	text, err := parseText(pdfReader)
+	bs, err = parseBytes(pdfReader)
 
-	return text, err
+	return
 }
 
 // outputPdfText prints out contents of PDF file to stdout.
-func ExtractPdfFile(inputPath string) (string, error) {
+func ExtractPdfFile(inputPath string) (bs []byte, err error) {
 	f, err := os.Open(inputPath)
 	if err != nil {
-		return "", err
+		return
 	}
 
 	defer f.Close()
@@ -155,16 +160,16 @@ func ExtractPdfFile(inputPath string) (string, error) {
 
 	if err != nil {
 		fmt.Printf("parser pdf failed, err: %s\n", err)
-		return "", err
+		return
 	}
 
 	err = pdfReader.ParseFonts()
 	if err != nil {
 		fmt.Printf("parse fonts err: %s\n", err)
-		return "", err
+		return
 	}
 
-	text, err := parseText(pdfReader)
+	bs, err = parseBytes(pdfReader)
 
-	return text, err
+	return
 }
