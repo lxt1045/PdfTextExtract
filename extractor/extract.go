@@ -1,10 +1,9 @@
 /*
- * PDF to text: Extract all text for each page of a pdf file.
- *
- * Run as: go run pdf_extract_text.go input.pdf
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE.md', which is part of this source code package.
  */
 
-package main
+package extractor
 
 import (
 	"bytes"
@@ -12,9 +11,10 @@ import (
 	"os"
 	"time"
 
-	common "github.com/lxt1045/PdfTextExtract/common"
-	. "github.com/lxt1045/PdfTextExtract/core"
-	. "github.com/lxt1045/PdfTextExtract/extractor"
+	"github.com/lxt1045/PdfTextExtract/common"
+	"github.com/lxt1045/PdfTextExtract/core"
+
+	// . "github.com/lxt1045/PdfTextExtract/core"
 	pdf "github.com/lxt1045/PdfTextExtract/model"
 
 	// "github.com/otiai10/gosseract"
@@ -24,7 +24,7 @@ import (
 )
 
 type ContentPair struct {
-	s     *PdfObjectStream
+	s     *core.PdfObjectStream
 	index int
 }
 
@@ -42,15 +42,15 @@ func parseText(this *pdf.PdfReader) (string, error) {
 
 	go func() {
 		for i := 0; i < len(pageList); i++ {
-			if pageObjDict, ok := pageList[i].PdfObject.(*PdfObjectDictionary); ok {
-				if contentsArray, ok := pageObjDict.Get("Contents").(*PdfObjectArray); ok {
+			if pageObjDict, ok := pageList[i].PdfObject.(*core.PdfObjectDictionary); ok {
+				if contentsArray, ok := pageObjDict.Get("Contents").(*core.PdfObjectArray); ok {
 					for j := 0; j < len(*contentsArray); j++ {
 						contentObj, err := parser.Trace((*contentsArray)[j])
 						if err != nil {
 							common.Log.Debug("Error: trace content to obj failed, err: %s", err)
 							continue
 						}
-						if contentStmObj, ok := contentObj.(*PdfObjectStream); ok {
+						if contentStmObj, ok := contentObj.(*core.PdfObjectStream); ok {
 							produce := true
 							for produce {
 								select {
@@ -63,7 +63,7 @@ func parseText(this *pdf.PdfReader) (string, error) {
 						}
 					}
 				} else if contentObj, err := parser.Trace(pageObjDict.Get("Contents")); err == nil {
-					if contentStmObj, ok := contentObj.(*PdfObjectStream); ok {
+					if contentStmObj, ok := contentObj.(*core.PdfObjectStream); ok {
 						produce := true
 						for produce {
 							select {
@@ -100,7 +100,7 @@ func parseText(this *pdf.PdfReader) (string, error) {
 	var textBuffer bytes.Buffer
 	for {
 		if pair, ok := <-contentStreamChan; ok {
-			streamData, err := DecodeStream(pair.s)
+			streamData, err := core.DecodeStream(pair.s)
 			if err != nil {
 				return "", err
 			}

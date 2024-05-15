@@ -12,6 +12,7 @@ import (
 	"os"
 
 	common "github.com/lxt1045/PdfTextExtract/common"
+	"github.com/lxt1045/PdfTextExtract/extractor"
 	// "github.com/otiai10/gosseract"
 	//"runtime"
 )
@@ -34,7 +35,7 @@ func main() {
 			runtime.ReadMemStats(m)
 			fmt.Printf("before load, heap memory: %d, head in use: %d\n", m.HeapAlloc, m.HeapInuse)
 	*/
-	text, err := ExtractPdfFile(inputPath)
+	text, err := extractor.ExtractPdfFile(inputPath)
 	if err != nil {
 		fmt.Printf("Error: %s\n", err)
 		os.Exit(1)
@@ -53,7 +54,7 @@ func main() {
 		panic(err)
 	}
 	content := string(fd)
-	text, err = ExtractPdfContent(content)
+	text, err = extractor.ExtractPdfContent(content)
 	if err != nil {
 		fmt.Printf("Error: %s\n", err)
 		os.Exit(1)
