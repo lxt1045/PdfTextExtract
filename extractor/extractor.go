@@ -5,7 +5,7 @@
 
 package extractor
 
-import "github.com/hy05190134/PdfTextExtract/model"
+import "github.com/lxt1045/PdfTextExtract/model"
 
 // Extractor stores and offers functionality for extracting content from PDF pages.
 type Extractor struct {

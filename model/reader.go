@@ -12,9 +12,9 @@ import (
 	"io/ioutil"
 	"strconv"
 
-	cmap "github.com/hy05190134/PdfTextExtract/cmap"
-	common "github.com/hy05190134/PdfTextExtract/common"
-	. "github.com/hy05190134/PdfTextExtract/core"
+	cmap "github.com/lxt1045/PdfTextExtract/cmap"
+	common "github.com/lxt1045/PdfTextExtract/common"
+	. "github.com/lxt1045/PdfTextExtract/core"
 )
 
 const (

@@ -8,7 +8,7 @@ package core
 import (
 	"fmt"
 
-	"github.com/hy05190134/PdfTextExtract/common"
+	"github.com/lxt1045/PdfTextExtract/common"
 )
 
 // NewEncoderFromStream creates a StreamEncoder based on the stream's dictionary.

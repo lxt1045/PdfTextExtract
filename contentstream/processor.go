@@ -6,8 +6,8 @@
 package contentstream
 
 import (
-	"github.com/hy05190134/PdfTextExtract/common"
-	. "github.com/hy05190134/PdfTextExtract/model"
+	"github.com/lxt1045/PdfTextExtract/common"
+	. "github.com/lxt1045/PdfTextExtract/model"
 	//. "github.com/unidoc/unidoc/pdf/core"
 )
 

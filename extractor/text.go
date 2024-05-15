@@ -10,11 +10,11 @@ import (
 	"errors"
 	"fmt"
 
-	cmap "github.com/hy05190134/PdfTextExtract/cmap"
-	common "github.com/hy05190134/PdfTextExtract/common"
-	contentstream "github.com/hy05190134/PdfTextExtract/contentstream"
-	core "github.com/hy05190134/PdfTextExtract/core"
-	model "github.com/hy05190134/PdfTextExtract/model"
+	cmap "github.com/lxt1045/PdfTextExtract/cmap"
+	common "github.com/lxt1045/PdfTextExtract/common"
+	contentstream "github.com/lxt1045/PdfTextExtract/contentstream"
+	core "github.com/lxt1045/PdfTextExtract/core"
+	model "github.com/lxt1045/PdfTextExtract/model"
 )
 
 // ExtractText processes and extracts all text data in content streams and returns as a string. Takes into

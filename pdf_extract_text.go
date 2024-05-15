@@ -9,71 +9,19 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"io"
 	"os"
 	"time"
 
-	common "github.com/hy05190134/PdfTextExtract/common"
-	. "github.com/hy05190134/PdfTextExtract/core"
-	. "github.com/hy05190134/PdfTextExtract/extractor"
-	pdf "github.com/hy05190134/PdfTextExtract/model"
+	common "github.com/lxt1045/PdfTextExtract/common"
+	. "github.com/lxt1045/PdfTextExtract/core"
+	. "github.com/lxt1045/PdfTextExtract/extractor"
+	pdf "github.com/lxt1045/PdfTextExtract/model"
 
 	// "github.com/otiai10/gosseract"
 
 	//"runtime"
 	"strings"
 )
-
-func main() {
-	// if len(os.Args) < 2 {
-	// 	fmt.Printf("Usage: go run pdf_extract_text.go input.pdf\n")
-	// 	os.Exit(1)
-	// }
-
-	// For debugging.
-	common.SetLogger(common.NewConsoleLogger(common.LogLevelDebug))
-
-	// inputPath := os.Args[1]
-	inputPath := "D:/book/极客时间/CICD/DevOps实战笔记.pdf"
-
-	/*
-		    m := new(runtime.MemStats)
-			runtime.GC()
-			runtime.ReadMemStats(m)
-			fmt.Printf("before load, heap memory: %d, head in use: %d\n", m.HeapAlloc, m.HeapInuse)
-	*/
-	text, err := ExtractPdfFile(inputPath)
-	if err != nil {
-		fmt.Printf("Error: %s\n", err)
-		os.Exit(1)
-	}
-
-	fmt.Println(text)
-	fmt.Println("--------------")
-
-	fi, err := os.Open(inputPath)
-	if err != nil {
-		panic(err)
-	}
-	defer fi.Close()
-	fd, err := io.ReadAll(fi)
-	if err != nil {
-		panic(err)
-	}
-	content := string(fd)
-	text, err = ExtractPdfContent(content)
-	if err != nil {
-		fmt.Printf("Error: %s\n", err)
-		os.Exit(1)
-	}
-
-	fmt.Println(text)
-	/*
-		runtime.GC()
-		runtime.ReadMemStats(m)
-		fmt.Printf("after load, heap memory: %d, head in use: %d\n", m.HeapAlloc, m.HeapInuse)
-	*/
-}
 
 type ContentPair struct {
 	s     *PdfObjectStream

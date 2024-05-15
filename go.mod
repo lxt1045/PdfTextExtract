@@ -1,4 +1,4 @@
-module github.com/hy05190134/PdfTextExtract
+module github.com/lxt1045/PdfTextExtract
 
 go 1.22.2
 

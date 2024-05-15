@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/hy05190134/PdfTextExtract/common"
+	"github.com/lxt1045/PdfTextExtract/common"
 )
 
 var rePdfVersion = regexp.MustCompile(`%PDF-(\d)\.(\d)`)

@@ -12,7 +12,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/hy05190134/PdfTextExtract/common"
+	"github.com/lxt1045/PdfTextExtract/common"
 )
 
 // TODO (v3): Create a new type xrefType which can be an integer and can be used for improved type checking.

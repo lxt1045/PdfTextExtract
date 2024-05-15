@@ -14,8 +14,8 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/hy05190134/PdfTextExtract/common"
-	. "github.com/hy05190134/PdfTextExtract/core"
+	"github.com/lxt1045/PdfTextExtract/common"
+	. "github.com/lxt1045/PdfTextExtract/core"
 )
 
 // Content stream parser.

@@ -31,7 +31,7 @@ import (
 	// Need two slightly different implementations of LZW (EarlyChange parameter).
 	lzw0 "compress/lzw"
 
-	"github.com/hy05190134/PdfTextExtract/common"
+	"github.com/lxt1045/PdfTextExtract/common"
 	lzw1 "golang.org/x/image/tiff/lzw"
 )
 
